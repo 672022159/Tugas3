@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
-        // Observer untuk data user
+        //  pencarian data user
         viewModel.users.observe(this) { users ->
             allUsers.clear()
             allUsers.addAll(users)
@@ -38,12 +38,12 @@ class MainActivity : AppCompatActivity() {
             binding.txtUniversity.text = ""
         }
 
-        // Tombol Get Users
+        // Tombol Get Users untuk mengambila data yang sudah ditemukan 
         binding.btnGetUsers.setOnClickListener {
             viewModel.fetchUsers()
         }
 
-        // Tombol Previous
+        // Tombol Previous untuk melihat sebelum nya  
         binding.btnPrevious.setOnClickListener {
             if (currentIndex > 0) {
                 currentIndex--
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Tombol Next
+        // Tombol Next untuk melihat data berikut nya
         binding.btnNext.setOnClickListener {
             if (currentIndex < allUsers.size - 1) {
                 currentIndex++
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         binding.txtLastName.text = user.lastName
         binding.txtUniversity.text = user.university
 
-        // Proteksi tombol
+        // tombol previous di data yang pertama dia tidak bisa di tekan  
         binding.btnPrevious.isEnabled = index > 0
         binding.btnNext.isEnabled = index < allUsers.size - 1
     }
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread {
                     binding.tvAveragePrice.text = "Rata-rata harga produk: $formattedPrice"
                 }
-
+            //jika data product tidak ditemukan maka akan muncul proteksi yang menyatakan data product gagal di ambil 
             } catch (e: Exception) {
                 runOnUiThread {
                     binding.tvAveragePrice.text = "Gagal mengambil data produk"
